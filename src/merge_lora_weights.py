@@ -1,20 +1,28 @@
 import argparse
-from utils import get_model_name_from_path, load_pretrained_model
+from transformers import Qwen2VLForConditionalGeneration, AutoProcessor
+from peft import LoraConfig, PeftModel
 
 def merge_lora(args):
-    model_name = get_model_name_from_path(args.model_path)
-    processor, model = load_pretrained_model(model_path=args.model_path, model_base=args.model_base,
-                                             model_name=model_name, device_map='cpu')
 
-    model.save_pretrained(args.save_model_path, safe_serialization=args.safe_serialization)
+    model = Qwen2VLForConditionalGeneration.from_pretrained(
+        args.model_base,
+        torch_dtype='auto',
+        attn_implementation="flash_attention_2",
+        device_map="auto",
+    )
+    processor = AutoProcessor.from_pretrained(args.model_base)
+    peft_model_name = args.lora_path
+    merged_model= PeftModel.from_pretrained(model,peft_model_name)
+    merged_model= merged_model.merge_and_unload()
+    model.save_pretrained(args.save_model_path)
+    processor.save_pretrained(args.save_model_path)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model-path", type=str, required=True)
+    parser.add_argument("--lora-path", type=str, required=True)
     parser.add_argument("--model-base", type=str, required=True)
     parser.add_argument("--save-model-path", type=str, required=True)
-    parser.add_argument("--safe-serialization", action='store_true')
 
     args = parser.parse_args()
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MODEL_NAME="Qwen/Qwen2-VL-7B-Instruct"
+MODEL_NAME="scb10x/typhoon2-qwen2vl-7b-vision-instruct"
 # MODEL_NAME="Qwen/Qwen2-VL-2B-Instruct"
 
 export PYTHONPATH=src:$PYTHONPATH
