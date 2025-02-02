@@ -9,4 +9,4 @@ LLAVA_VIDEO_TOKEN = "<video>"
 VISION_START_TOKEN = "<|vision_start|>"
 VISION_END_TOKEN = "<|vision_end|>"
 
-SYSTEM_MESSAGE = "You are a helpful assistant."
+SYSTEM_MESSAGE = "You are image captioning model that answer in Thai."
