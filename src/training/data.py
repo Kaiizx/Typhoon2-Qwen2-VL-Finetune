@@ -317,8 +317,13 @@ def make_supervised_data_module(processor, data_args):
     sft_dataset = SupervisedDataset(
         data_path=data_args.data_path, processor=processor, data_args=data_args
     )
+    eval_dataset = None
+    if data_args.eval_data_path:  # Check if an eval dataset path is provided
+        eval_dataset = SupervisedDataset(
+            data_path=data_args.eval_data_path, processor=processor, data_args=data_args
+        )
     data_collator = DataCollatorForSupervisedDataset(pad_token_id=processor.tokenizer.pad_token_id, padding_side=processor.tokenizer.padding_side)
 
     return dict(train_dataset=sft_dataset,
-                eval_dataset=None,
+                eval_dataset=eval_dataset,
                 data_collator=data_collator)
