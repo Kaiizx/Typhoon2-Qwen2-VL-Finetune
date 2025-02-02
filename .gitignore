@@ -166,5 +166,10 @@ tf-logs
 tmp/
 scripts_tmp/
 logs/*.log
-
+logs/*.out
+merged_weight/*
 testing.ipynb
+
+inference/test/*
+inference/result/*
+batch_script/*
