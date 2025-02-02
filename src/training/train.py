@@ -70,8 +70,8 @@ def train():
     
     model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
-    if training_args.lora_enable and not training_args.freeze_llm:
-        raise ValueError("If `lora_enable` is True, `freeze_llm` must also be True.")
+    # if training_args.lora_enable and not training_args.freeze_llm:
+    #     raise ValueError("If `lora_enable` is True, `freeze_llm` must also be True.")
 
     if not training_args.lora_enable:
         assert not training_args.vision_lora, \
