@@ -1,6 +1,6 @@
 # Fine-tuning Typhoon2-Qwen2-VL
 
-This repository fork form [2U1/Qwen2-VL-Finetune](https://github.com/2U1/Qwen2-VL-Finetune) using for Thai Image Captioning 
+This repository fork form [2U1/Qwen2-VL-Finetune](https://github.com/2U1/Qwen2-VL-Finetune) for finetuning Thai Image Caption
 
 ## Techniques 
 
