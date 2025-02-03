@@ -20,7 +20,7 @@ Install the required packages using `requirements.txt`.
 ```bash
 conda env create qwen2 python==3.11 --y
 conda activate qwen2
-
+pip install -r requirements.txt
 pip install flash-attn==2.7.4 --no-build-isolation
 ```
 
