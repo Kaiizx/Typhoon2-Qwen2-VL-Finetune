@@ -296,7 +296,7 @@ If you find this repository useful in your project, please consider giving a :st
 ## Acknowledgement
 
 This project is based on
-- [Typhoon2-Vision](https://huggingface.co/scb10x/typhoon2-qwen2vl-7b-vision-instruct) : 
+- [Typhoon2-Vision](https://huggingface.co/scb10x/typhoon2-qwen2vl-7b-vision-instruct) : A Family of Open Text and Multimodal Thai Large Language Models
 - [LLaVA-NeXT](https://github.com/LLaVA-VL/LLaVA-NeXT): An amazing open-source project of LMM.
 - [Mipha](https://github.com/zhuyiche/llava-phi): Open-source projcet of SMM with amazing capabilites.
 - [Qwen2-VL-7B-Instruct](https://huggingface.co/Qwen/Qwen2-VL-7B-Instruct): Awesome pretrained MLLM based on Qwen2.
