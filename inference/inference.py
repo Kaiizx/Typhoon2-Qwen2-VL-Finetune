@@ -15,7 +15,7 @@ def infer(image_path):
     instruction = 'You are image captioning model that answer in Thai.'
     image_url = f'file://{image_path}'
     chat_response = client.chat.completions.create(
-        model="~/Qwen2-VL-Finetune/merged_weight/typhoon2-ft-3e",
+        model="merged/model-path",
         messages=[
             
             {"role": "system", "content": instruction},
@@ -35,7 +35,7 @@ def infer(image_path):
 # print("Chat completion output:", chat_response.choices[0].message.content)
 
 # Single-image input inference
-dir_path = '~/Qwen2-VL-Finetune/inference/test'
+dir_path = '/path/to/datasets'
 test_df = pd.read_csv('sample_submission.csv')
 test_df['image_id'] = test_df['image_id'].astype(str).str.zfill(5)
 

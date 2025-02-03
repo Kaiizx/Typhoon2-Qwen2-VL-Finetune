@@ -28,16 +28,16 @@ accelerate launch \
         --num_lora_modules -1 \
         --deepspeed scripts/zero3.json \
         --model_id $MODEL_NAME \
-        --data_path /lustre/scratch/public/AI-cooking-hack/captioning/capgen_llava_train.json \
-        --eval_data_path /lustre/scratch/public/AI-cooking-hack/captioning/capgen_llava_val.json \
-        --image_folder /lustre/scratch/public/AI-cooking-hack/captioning \
+        --data_path /path/to/datasets/capgen_llava_train.json \
+        --eval_data_path /path/to/datasets/capgen_llava_val.json \
+        --image_folder /path/to/datasets \
         --freeze_vision_tower True \
         --freeze_llm True \
         --tune_merger True \
         --bf16 True \
         --fp16 False \
         --disable_flash_attn2 False \
-        --output_dir output/typhoon2-lora64-merger-ft \
+        --output_dir output/typhoon2-lora-ft \
         --num_train_epochs 3 \
         --per_device_train_batch_size $BATCH_PER_DEVICE \
         --gradient_accumulation_steps $GRAD_ACCUM_STEPS \

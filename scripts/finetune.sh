@@ -2,8 +2,8 @@
 
 # You can use 2B instead of 7B
 # MODEL_NAME="Qwen/Qwen2-VL-7B-Instruct"
-# MODEL_NAME="scb10x/typhoon2-qwen2vl-7b-vision-instruct"
-MODEL_NAME="Qwen/Qwen2-VL-2B-Instruct"
+MODEL_NAME="scb10x/typhoon2-qwen2vl-7b-vision-instruct"
+# MODEL_NAME="Qwen/Qwen2-VL-2B-Instruct"
 
 GLOBAL_BATCH_SIZE=1024
 BATCH_PER_DEVICE=128
@@ -21,8 +21,8 @@ accelerate launch \
     src/training/train.py \
         --deepspeed scripts/zero3.json \
         --model_id $MODEL_NAME \
-        --data_path /lustre/scratch/public/AI-cooking-hack/captioning/capgen_llava_train.json \
-        --image_folder /lustre/scratch/public/AI-cooking-hack/captioning \
+        --data_path /path/to/datasets/capgen_llava_train.json \
+        --image_folder /path/to/datasets \
         --freeze_vision_tower True \
         --freeze_llm True \
         --tune_merger True \
