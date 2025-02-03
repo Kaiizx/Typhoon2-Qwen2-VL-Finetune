@@ -1,73 +1,27 @@
-# Fine-tuning Qwen2-VL
+# Fine-tuning Typhoon2-Qwen2-VL
 
-This repository contains a script for training [Qwen2-VL](https://huggingface.co/Qwen/Qwen2-VL-7B-Instruct) with only using HuggingFace and [Liger-Kernel](https://github.com/linkedin/Liger-Kernel).
+This repository fork form [2U1/Qwen2-VL-Finetune](https://github.com/2U1/Qwen2-VL-Finetune) using for Thai Image Captioning 
 
-## Other projects
+## Techniques 
 
-**[[Phi3-Vision Finetuning]](https://github.com/2U1/Phi3-Vision-Finetune)**<br>
-**[[Llama3.2-Vision Finetuning]](https://github.com/2U1/Llama3.2-Vision-Ft)**<br>
-**[[Molmo Finetune]](https://github.com/2U1/Molmo-Finetune)**<br>
-**[[Pixtral Finetune]](https://github.com/2U1/Pixtral-Finetune)**<br>
-**[[SmolVLM Finetune]](https://github.com/2U1/SmolVLM-Finetune)**
-
-## Update
-
-- [2025/01/24] Add option for using DoRA.
-- [2025/01/24] Fix error in LoRA training.
-- [2025/01/18] 🔥Supports mixed-modality data.
-- [2025/01/11] Updated 8-bit training with ms_amp fp8 with opt_level O3.
-- [2024/11/05] Add memory efficient 8-bit training.
-- [2024/09/12] 🔥Now the model is trained using [Liger-Kernel](https://github.com/linkedin/Liger-Kernel).
-- [2024/09/11] Supports setting different learning rates to projector and vision model.
-- [2024/09/11] 🔥Supports multi-image and video training.
-
-## Table of Contents
-
-- [Fine-tuning Qwen2-VL](#fine-tuning-qwen2-vl)
-  - [Other projects](#other-projects)
-  - [Update](#update)
-  - [Table of Contents](#table-of-contents)
-  - [Supported Features](#supported-features)
-  - [Installation](#installation)
-    - [Using `environment.yaml`](#using-environmentyaml)
-  - [Dataset Preparation](#dataset-preparation)
-  - [Training](#training)
-    - [Full Finetuning](#full-finetuning)
-    - [Full Finetuning with 8-bit](#full-finetuning-with-8-bit)
-    - [Finetune with LoRA](#finetune-with-lora)
-    - [Train with video dataset](#train-with-video-dataset)
-      - [Merge LoRA Weights](#merge-lora-weights)
-      - [Image Resolution for performance boost](#image-resolution-for-performance-boost)
-      - [Issue for libcudnn error](#issue-for-libcudnn-error)
-  - [Inference](#inference)
-    - [Gradio Infernce (WebUI)](#gradio-infernce-webui)
-  - [TODO](#todo)
-  - [Known Issues](#known-issues)
-  - [License](#license)
-  - [Citation](#citation)
-  - [Acknowledgement](#acknowledgement)
-
-## Supported Features
-
-- Deepspeed
-- LoRA/QLoRA
-- Full-finetuning
-- Enable finetuning `vision_model` while using LoRA.
-- Disable/enable Flash Attention 2
-- Multi-image and video training
+- Deepspeed Zero Stage-3
+- LoRA
+- Flash Attention 2
 - Training optimized with liger kernel
+- VLLM inference
+- Post Process with Deepcut
 
 ## Installation
 
-Install the required packages using `environment.yaml`.
+Install the required packages using `requirements.txt`.
 
-### Using `environment.yaml`
+### Using `requirements.txt`
 
 ```bash
-conda env create -f environment.yaml
+conda env create qwen2 python==3.11 --y
 conda activate qwen2
-pip install qwen-vl-utils
-pip install flash-attn==2.5.8 --no-build-isolation
+
+pip install flash-attn==2.7.4 --no-build-isolation
 ```
 
 **Note:** You should install flash-attn after installing the other packages.
@@ -299,28 +253,23 @@ You could see this [issue](https://github.com/andimarafioti/florence2-finetuning
 
 **Note:** You should use the merged weight when trained with LoRA.
 
-### Gradio Infernce (WebUI)
+### VLLM
 
-1. Install gradio
-
-```
-pip install gradio
-```
-
-2. Launch app
+1. Running the Service
 
 ```
-python -m src.serve.app \
-    --model-path /path/to/merged/weight
+bash inference/serve.sh
 ```
 
-You can launch gradio based demo with this command. This can also set some other generation configs like `repetition_penalty`, `temperature` etc.
+2. Running client post api
+
+```
+python inference/inference.py
+```
 
 ## TODO
 
-- [x] Support for video data
-- [x] Add demo for multi-image and video
-- [x] Handle mixed-modality data in dataset and collator
+Following.. [2U1/Qwen2-VL-Finetune](https://github.com/2U1/Qwen2-VL-Finetune)
 
 ## Known Issues
 
@@ -347,8 +296,9 @@ If you find this repository useful in your project, please consider giving a :st
 ## Acknowledgement
 
 This project is based on
-
+- [Typhoon2-Vision](https://huggingface.co/scb10x/typhoon2-qwen2vl-7b-vision-instruct) : 
 - [LLaVA-NeXT](https://github.com/LLaVA-VL/LLaVA-NeXT): An amazing open-source project of LMM.
 - [Mipha](https://github.com/zhuyiche/llava-phi): Open-source projcet of SMM with amazing capabilites.
 - [Qwen2-VL-7B-Instruct](https://huggingface.co/Qwen/Qwen2-VL-7B-Instruct): Awesome pretrained MLLM based on Qwen2.
 - [Liger-Kernel](https://github.com/linkedin/Liger-Kernel): Collection of Tirton kernels designed specifically for LLM training.
+- [VLLM](https://github.com/vllm-project/vllm) : Easy, fast, and cheap LLM serving for everyone
